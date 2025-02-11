@@ -1,4 +1,6 @@
 import {SubmitHandler, useForm} from 'react-hook-form';
+import {FormInput} from '../../../../../src/common/components/FormInput';
+import {Button} from '../../../../../src/common/components/Button';
 
 type FormValue = {
     idInstance: string,
@@ -14,22 +16,21 @@ export const LoginForm = () => {
         console.log('Form Data:', data);
     };
 
-
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div style={{marginBottom: 20}}>
-                <label htmlFor="idInstance">idInstance</label>
-                <input {...register('idInstance', {required: 'field is required'})} />
-                {errors.idInstance && <span style={{color: 'red'}}>{errors.idInstance.message}</span>}
-            </div>
-
-            <div style={{marginBottom: 20}}>
-                <label htmlFor="apiTokenInstance">apiTokenInstance</label>
-                <input {...register('apiTokenInstance', {required: "field is required"})} />
-                {errors.apiTokenInstance && <span style={{ color: 'red' }}>{errors.apiTokenInstance.message}</span>}
-            </div>
-
-            <button type="submit" disabled={!isValid}>Login</button>
+            <FormInput
+                name="idInstance"
+                label="idInstance"
+                register={register}
+                errors={errors}
+            />
+            <FormInput
+                name="apiTokenInstance"
+                label="apiTokenInstance"
+                register={register}
+                errors={errors}
+            />
+            <Button textBtn={"LOGIN"} type="submit" disabled={!isValid}/>
         </form>
     );
 }
