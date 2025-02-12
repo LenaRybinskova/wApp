@@ -1,12 +1,16 @@
-import '../../src/app/App.css'
+/*import '../app/App.css'*/
 import {LoginForm} from '../../src/features/auth/ui/LoginForm/Login.tsx';
+import {Route, Routes} from 'react-router-dom';
+import {Chat} from '../features/chat/ui/Chat';
 
 function App() {
 
     return (
         <>
-            LENA
-            <LoginForm/>
+            <Routes>
+                <Route path="/" element={<LoginForm/>}/>
+                <Route path="/chat" element={<Chat/>}/>
+            </Routes>
         </>
     )
 }
