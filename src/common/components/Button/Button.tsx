@@ -1,13 +1,13 @@
 import {ComponentPropsWithoutRef} from 'react';
 
 type Props = {
-    textBtn: string
+    children: React.ReactNode;
 } & ComponentPropsWithoutRef<'button'>
 
 export const Button = (props: Props) => {
-    const {textBtn, ...rest} = props;
+    const {children, ...rest} = props;
 
     return (
-        <button {...rest}>{textBtn}</button>
+        <button {...rest}>{children}</button>
     )
 }
