@@ -1,13 +1,12 @@
 import styles from './Chat.module.scss';
-import {Button} from '../../../../../src/common/components/Button';
 import {useEffect, useState} from 'react';
 import {TelephoneForm} from '../../../../../src/features/chat/ui/TelephonForm';
 
 import {
     useDeleteNotificationMutation,
     useReceiveNotificationQuery
-} from '../../../../../src/app/api/authApi/authApi.ts';
-import {MessageForm} from '../../../../../src/features/chat/ui/MessageForm/MessageForm.tsx';
+} from '../../../../../src/app/api/authApi.ts';
+import {InputMessageForm} from '../../../../../src/features/chat/ui/MessageForm/InputMessageForm.tsx';
 
 export type Message={
     owner:string
@@ -16,10 +15,9 @@ export type Message={
 }
 
 export const Chat = () => {
-    const {data:receiveNotification}=useReceiveNotificationQuery(undefined, {pollingInterval: 5000})
+    const {data:receiveNotification}=useReceiveNotificationQuery(undefined, {pollingInterval: 2000})
     const [deleteNotification] = useDeleteNotificationMutation();
 
-    const [showInputPhone, setShowInputPhone] = useState<boolean>(false);
     const [showChatField, setShowChatField] = useState<boolean>(false);
     const [messages, setMessages]=useState<Message[]>([])
 
@@ -28,19 +26,22 @@ export const Chat = () => {
 
         const { receiptId, body } = receiveNotification;
 
+        if(body?.messageData?.textMessageData?.textMessage.length>0){
+
             const newMessage: Message = {
                 id:`${Date.now()}-${Math.random()}`,
                 owner: body.senderData?.senderName,
                 message: body?.messageData?.textMessageData?.textMessage,
             }
-
             setMessages((prev) => [...prev, newMessage]);
+        }
+
             deleteNotification(receiptId);
 
     }, [receiveNotification, deleteNotification]);
 
     const createChatHandler = () => {
-        setShowInputPhone(true)
+        setShowChatField(true)
     }
 
     const messageHandler=(data:Message)=>{
@@ -49,14 +50,28 @@ export const Chat = () => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.containerLeftSide}>
-                <Button onClick={createChatHandler}>создать новый чат</Button>
-                {showInputPhone && <TelephoneForm createChat={setShowChatField}/>}
+            <div className={styles.leftSide}>
+                 <TelephoneForm createChat={createChatHandler} />
             </div>
-            <div className={styles.containerRightSide}>
-                {messages.length>0 && messages.map((message:Message) => <div key={message.id}>{message.message}</div>)}
-                <MessageForm callback={messageHandler}/>
+            <div className={styles.rightSide}>
+
+                {showChatField && (
+                    <>
+                        <div className={styles.chatBox}>
+                            {messages.map((message: Message) => (
+                                <div key={message.id} className={`${styles.message} ${message.owner === 'me' ? styles.messageOwner : ''}`}>
+                                    {message.message}
+                                </div>
+                            ))}
+                        </div>
+                        <div className={styles.messageForm}>
+                            <InputMessageForm callback={messageHandler} />
+                        </div>
+                    </>
+                )}
             </div>
         </div>
+
     )
 }
+

@@ -1,0 +1,16 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 12px;
+  border-radius: 15px;
+  border: 2px solid forestgreen;
+
+  font-weight: 500;
+  font-size: 16px;
+
+  text-align: center;
+  cursor: pointer;
+  max-height: 70px;
+}

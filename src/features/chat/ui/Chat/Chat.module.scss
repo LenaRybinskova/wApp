@@ -1,15 +1,65 @@
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  background-color: #eff4ef;
+  padding: 16px;
+  border-radius: 25px;
+  border: 2px solid darkgreen;
 }
 
-.containerLeftSide{
+.leftSide {
 
 }
 
-.containerRightSide{
+.rightSide {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 500px;
+  height: 500px;
+
+  border-radius: 25px;
+  border: 2px solid darkgreen;
+  padding: 5px;
+}
+
+.chatBox {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  border-radius: 25px;
+  border: 2px solid darkgreen;
+}
+
+.message {
+  padding: 10px;
+  margin: 15px 10px;
+  border: 2px solid darkgreen;
+  background-color:white;
+  border-radius: 15px;
+  max-width: 70%;
+  align-self: flex-start;
+}
+
+.messageOwner {
+  background-color: #bbd7ef;
+  align-self: flex-end;
+}
+
+.messageForm {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.inputContainer {
 
 }
 
+.inputContainer input {
+
+}
+
+button {
+
+}
