@@ -7,7 +7,7 @@ import {HashRouter} from 'react-router-dom';
 
 
 createRoot(document.getElementById('root')!).render(
-    <HashRouter>
+    <HashRouter basename={import.meta.env.VITE_PUBLIC_URL}>
         <Provider store={store}>
             <App/>
         </Provider>
