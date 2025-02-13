@@ -2,6 +2,7 @@ import {SubmitHandler, useForm} from 'react-hook-form';
 import {FormInput} from '../../../../../src/common/components/FormInput';
 import {Button} from '../../../../../src/common/components/Button';
 import {useNavigate} from 'react-router-dom';
+import styles from "./Login.module.scss"
 
 
 type FormValue = {
@@ -20,7 +21,7 @@ export const LoginForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.loginContainer}>
             <FormInput
                 name="idInstance"
                 label="idInstance"
