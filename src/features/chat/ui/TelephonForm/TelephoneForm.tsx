@@ -1,6 +1,7 @@
 import {FormInput} from '../../../../../src/common/components/FormInput';
 import {Button} from '../../../../../src/common/components/Button';
 import {SubmitHandler, useForm} from 'react-hook-form';
+import styles from './TelephonForm.module.scss'
 
 type Props = {
     createChat: (create: boolean) => void
@@ -11,7 +12,6 @@ type FormValue = {
 }
 
 export const TelephoneForm = (props: Props) => {
-
     const {createChat} = props
 
     const {register, handleSubmit, formState: {errors, isValid}} = useForm<FormValue>({mode: 'onChange'});
@@ -22,14 +22,14 @@ export const TelephoneForm = (props: Props) => {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
             <FormInput
                 name="telNumber"
                 label="telNumber"
                 register={register}
                 errors={errors}
             />
-            <Button disabled={!isValid} type="submit">добавить</Button>
+            <Button disabled={!isValid} type="submit">создать чат</Button>
         </form>
     )
 }

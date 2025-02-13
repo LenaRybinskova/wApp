@@ -1,9 +1,9 @@
-import {baseApi} from '../../../../src/app/api/baseApi.ts';
+import {baseApi} from '../../../src/app/api/baseApi.ts';
 import {
     DeleteNotificationResponse,
     ReceiveNotificationResponse,
     SendMessageResponse
-} from '../../../../src/app/api/types.ts';
+} from '../../../src/app/api/types.ts';
 
 export const authApi = baseApi.injectEndpoints({
     endpoints: build => ({
