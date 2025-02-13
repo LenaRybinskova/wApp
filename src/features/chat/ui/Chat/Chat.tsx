@@ -1,16 +1,60 @@
 import styles from './Chat.module.scss';
 import {Button} from '../../../../../src/common/components/Button';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {TelephoneForm} from '../../../../../src/features/chat/ui/TelephonForm';
-import {ChatField} from '../../../../../src/features/chat/ui/ChatField';
+
+import {
+    useDeleteNotificationMutation,
+    useReceiveNotificationQuery
+} from '../../../../../src/app/api/authApi/authApi.ts';
+import {MessageForm} from '../../../../../src/features/chat/ui/MessageForm/MessageForm.tsx';
+
+export type Message={
+    owner:string
+    message:string
+    id:string
+}
 
 export const Chat = () => {
+    const {data:receiveNotification}=useReceiveNotificationQuery(undefined, {pollingInterval: 5000})
+    const [deleteNotification] = useDeleteNotificationMutation();
     const [showInputPhone, setShowInputPhone] = useState<boolean>(false);
     const [showChatField, setShowChatField] = useState<boolean>(false);
+    const [messages, setMessages]=useState<Message[]>([])
 
+
+    useEffect(() => {
+        if (!receiveNotification) return;
+
+        const { receiptId, body } = receiveNotification;
+        const saveReceiptId = localStorage.getItem("lastReceiptId");
+
+        if (receiptId && receiptId.toString() !== saveReceiptId) {
+
+            const textMessage = body?.messageData?.textMessageData?.textMessage;
+
+            if (!textMessage) return;
+
+
+            const newMessage: Message = {
+                id: body.idMessage,
+                owner: body.senderData.senderName,
+                message: body.messageData.textMessageData.textMessage,
+            };
+
+            setMessages(prev => [...prev, newMessage]);
+            localStorage.setItem("lastReceiptId", receiptId.toString());
+
+            deleteNotification(receiptId);
+        }
+    }, [receiveNotification]);
 
     const createChatHandler = () => {
         setShowInputPhone(true)
+    }
+
+    const messageHandler=(data:Message)=>{
+        setMessages(prevMessages => [...prevMessages, data])
     }
 
     return (
@@ -20,7 +64,8 @@ export const Chat = () => {
                 {showInputPhone && <TelephoneForm createChat={setShowChatField}/>}
             </div>
             <div className={styles.containerRightSide}>
-                {showChatField ? <ChatField/> : <div>НЕТ СОЗДАННЫХ ЧАТОВ</div>}
+                {messages.length>0 && messages.map((message:Message) => <div key={message.id}>{message.message}</div>)}
+                <MessageForm callback={messageHandler}/>
             </div>
         </div>
     )
