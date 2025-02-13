@@ -7,7 +7,7 @@ type Props = {
 }
 
 type FormValue = {
-    telNumber: number
+    telNumber: string
 }
 
 export const TelephoneForm = (props: Props) => {
@@ -16,8 +16,9 @@ export const TelephoneForm = (props: Props) => {
 
     const {register, handleSubmit, formState: {errors, isValid}} = useForm<FormValue>({mode: 'onChange'});
 
-    const onSubmit: SubmitHandler<FormValue> = () => {
+    const onSubmit: SubmitHandler<FormValue> = (data: FormValue) => {
         createChat(true)
+        localStorage.setItem('telNumber', data.telNumber)
     }
 
     return (
