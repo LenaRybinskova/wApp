@@ -1,21 +1,28 @@
 import {baseApi} from '../../../../src/app/api/baseApi.ts';
-import {AuthResponse, LoginArgs} from '../../../../src/app/api/types.ts';
-
-
+import {SendMessageResponse} from '../../../../src/app/api/types.ts';
 
 export const authApi = baseApi.injectEndpoints({
     endpoints: build => ({
-        login: build.mutation<AuthResponse, LoginArgs>({
-            query: (data) => {
-                console.log("dsfsdf`", data)
+
+        sendMessage: build.mutation<SendMessageResponse, string>({
+            query: (message)=> {
+                const idInstance = localStorage.getItem('idInstance');
+                const apiTokenInstance = localStorage.getItem('apiTokenInstance');
+                const telNumber = localStorage.getItem('telNumber');
+
+                const payload = {
+                    chatId: `${telNumber}@c.us`,
+                    message: message
+                }
+
                 return {
-                    method: 'GET',
-                    url:`/waInstance${data.idInstance}/getStateInstance/${data.apiTokenInstance}`
+                    body: payload,
+                    method: 'POST',
+                    url: `waInstance${idInstance}/sendMessage/${apiTokenInstance}`
                 }
             },
         }),
-
     }),
 })
 
-export const {useLoginMutation} = authApi
+export const { useSendMessageMutation} = authApi

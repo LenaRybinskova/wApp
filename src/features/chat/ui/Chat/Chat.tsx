@@ -1,27 +1,26 @@
-
+import styles from './Chat.module.scss';
 import {Button} from '../../../../../src/common/components/Button';
-import {Textarea} from '../../../../../src/common/components/TeaxtArea/TextArea.tsx';
 import {useState} from 'react';
 import {TelephoneForm} from '../../../../../src/features/chat/ui/TelephonForm';
+import {ChatField} from '../../../../../src/features/chat/ui/ChatField';
 
 export const Chat = () => {
     const [showInputPhone, setShowInputPhone] = useState<boolean>(false);
-    const [showTextArea, setShowTextArea] = useState<boolean>(false);
+    const [showChatField, setShowChatField] = useState<boolean>(false);
 
 
     const createChatHandler = () => {
         setShowInputPhone(true)
     }
 
-
     return (
-        <div>
-            <div>
+        <div className={styles.container}>
+            <div className={styles.containerLeftSide}>
                 <Button onClick={createChatHandler}>создать новый чат</Button>
-                {showInputPhone && <TelephoneForm createChat={setShowTextArea}/>}
+                {showInputPhone && <TelephoneForm createChat={setShowChatField}/>}
             </div>
-            <div >
-                {showTextArea ? <Textarea/> : <div>НЕТ СОЗДАННЫХ ЧАТОВ</div>}
+            <div className={styles.containerRightSide}>
+                {showChatField ? <ChatField/> : <div>НЕТ СОЗДАННЫХ ЧАТОВ</div>}
             </div>
         </div>
     )
