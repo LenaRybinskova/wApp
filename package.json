@@ -1,7 +1,7 @@
 {
   "name": "wapp",
   "private": true,
-  "homepage": "https://LenaRybinskova.github.io/wApp",
+  "homepage": "https://LenaRybinskova.github.io/wApp/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
