@@ -1,11 +1,16 @@
 import {baseApi} from '../../../../src/app/api/baseApi.ts';
-import {ReceiveNotificationResponse, SendMessageResponse} from '../../../../src/app/api/types.ts';
+import {
+    DeleteNotificationResponse,
+    ReceiveNotificationResponse,
+    SendMessageResponse
+} from '../../../../src/app/api/types.ts';
 
 export const authApi = baseApi.injectEndpoints({
     endpoints: build => ({
 
         sendMessage: build.mutation<SendMessageResponse, string>({
-            query: (message)=> {
+            query: (message) => {
+
                 const idInstance = localStorage.getItem('idInstance');
                 const apiTokenInstance = localStorage.getItem('apiTokenInstance');
                 const telNumber = localStorage.getItem('telNumber');
@@ -24,7 +29,8 @@ export const authApi = baseApi.injectEndpoints({
         }),
 
         receiveNotification: build.query<ReceiveNotificationResponse, void>({
-            query: ()=> {
+            query: () => {
+
                 const idInstance = localStorage.getItem('idInstance');
                 const apiTokenInstance = localStorage.getItem('apiTokenInstance');
 
@@ -35,12 +41,11 @@ export const authApi = baseApi.injectEndpoints({
             },
         }),
 
-        deleteNotification: build.mutation<any, any>({
-            query: ()=> {
+        deleteNotification: build.mutation<DeleteNotificationResponse, number>({
+            query: (receiptId) => {
+
                 const idInstance = localStorage.getItem('idInstance');
                 const apiTokenInstance = localStorage.getItem('apiTokenInstance');
-                const receiptId = localStorage.getItem('receiptId');
-
 
                 return {
                     method: 'DELETE',
@@ -51,4 +56,4 @@ export const authApi = baseApi.injectEndpoints({
     }),
 })
 
-export const { useSendMessageMutation, useReceiveNotificationQuery, useDeleteNotificationMutation} = authApi
+export const {useSendMessageMutation, useReceiveNotificationQuery, useDeleteNotificationMutation} = authApi
