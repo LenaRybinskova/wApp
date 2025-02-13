@@ -13,15 +13,15 @@ type Props = {
     callback: (data: Message) => void
 }
 
-export const MessageForm = (props:Props) => {
-    const {callback}=props
+export const MessageForm = (props: Props) => {
+    const {callback} = props
     const [sentMessage] = useSendMessageMutation()
 
     const {handleSubmit, register,} = useForm<FormValue>();
 
     const onSubmit: SubmitHandler<FormValue> = (data: FormValue) => {
         sentMessage(data.message).unwrap().then((res) => {
-            callback({owner:"me", message:data.message, id:res.idMessage})
+            callback({owner: 'me', message: data.message, id: res.idMessage})
         })
     }
 
