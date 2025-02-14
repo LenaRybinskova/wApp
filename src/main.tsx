@@ -13,6 +13,3 @@ createRoot(document.getElementById('root')!).render(
         </Provider>
     </HashRouter>
 )
-
-
-// <HashRouter basename={process.env.PUBLIC_URL}>

@@ -25,8 +25,10 @@ export const Chat = () => {
         if (!receiveNotification) return;
 
         const { receiptId, body } = receiveNotification;
+        const sender = body?.senderData?.sender
+        const myConversation=`${localStorage.getItem('telNumber')}@c.us` === sender
 
-        if(body?.messageData?.textMessageData?.textMessage.length>0){
+        if(body?.messageData?.textMessageData?.textMessage.length>0 && myConversation){
 
             const newMessage: Message = {
                 id:`${Date.now()}-${Math.random()}`,
