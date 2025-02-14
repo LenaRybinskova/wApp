@@ -21,6 +21,7 @@ https://lenarybinskova.github.io/wApp/
 
 ![Image alt](https://github.com/LenaRybinskova/wApp/blob/main/auth.bmp)
 
+![Image alt](https://github.com/LenaRybinskova/wApp/blob/main/Chat.bmp)
 
 
 
