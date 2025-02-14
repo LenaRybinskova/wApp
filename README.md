@@ -19,6 +19,8 @@ https://lenarybinskova.github.io/wApp/
 После чего ние появится поле для отображения сообщений и форма для введения нового сообщения.
 Проверка на наличие новых сообщений от собеседника происходит каждые 5 секунд.
 
+![Image alt](https://github.com/LenaRybinskova/wApp/blob/main/auth.bmp)
+
 
 
 
