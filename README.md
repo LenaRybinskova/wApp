@@ -4,6 +4,7 @@
 - React - Redux
 - RTK Query
 - React-router-dom
+- React-hook-form
 
 - Vite (инструмент сборки)
 
